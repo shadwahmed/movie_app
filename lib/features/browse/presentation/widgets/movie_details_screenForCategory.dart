@@ -3,18 +3,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
-import 'package:movie_app/features/homeTab/presentation/widgets/moreLikeThis_Item.dart';
-import 'package:movie_app/features/homeTab/presentation/widgets/moreLikeThis_part.dart';
-import 'package:movie_app/features/homeTab/presentation/widgets/more_model.dart';
+import 'package:movie_app/features/browse/presentation/widgets/more_modelForCategory.dart';
 
-class MovieDetailsScreen extends StatelessWidget {
-  static const String routName = 'movieDetails';
+class MovieDetailsScreenForCategory extends StatelessWidget {
+  static const String routName = 'movieDetailsForCategory';
 
-  const MovieDetailsScreen({super.key});
+  const MovieDetailsScreenForCategory({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as MoreModel;
+    final args =
+        ModalRoute.of(context)!.settings.arguments as MoreModelForSearch;
     var image = "https://image.tmdb.org/t/p/w500";
     var backGroundPath = "$image${args.results[args.index].backdropPath}";
     var postarPath = "$image${args.results[args.index].posterPath}";
@@ -210,31 +209,6 @@ class MovieDetailsScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              color: Color(0xff282A28),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 18, top: 2),
-                    child: Text(
-                      "More Like This ",
-                      style: TextStyle(fontSize: 18, color: Colors.white),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 4,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8, top: 2, bottom: 8),
-                    child: Container(
-                        height: 160,
-                        child: MoreLikeThisPart(
-                            results: args.results, index: args.index)),
                   ),
                 ],
               ),

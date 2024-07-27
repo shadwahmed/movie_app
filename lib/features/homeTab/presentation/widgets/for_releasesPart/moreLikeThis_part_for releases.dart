@@ -1,15 +1,13 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:movie_app/core/api/api_manager.dart';
-import '../../data/models/popular_response.dart';
-import 'moreLikeThis_Item.dart';
+import 'package:movie_app/features/homeTab/data/models/releases_response.dart';
+import 'package:movie_app/features/homeTab/presentation/widgets/for_releasesPart/moreLikeThis_Item_forReleases.dart';
 
-class MoreLikeThisPart extends StatelessWidget {
+class MoreLikeThisPartForReleases extends StatelessWidget {
 
   List<Results> results;
   int index;
-  MoreLikeThisPart({required this.results,required this.index,super.key});
+  MoreLikeThisPartForReleases({required this.results,required this.index,super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +31,7 @@ class MoreLikeThisPart extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemBuilder: (_, index) => Padding(
               padding: const EdgeInsets.all(2.0),
-              child: MoreLikeThisItem(
+              child: MoreLikeThisItemForReleasesPart(
                 results: resultList,
                 index: index,
               ),

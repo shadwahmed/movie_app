@@ -1,16 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../data/models/moreLikeThis_Response.dart';
+import '../../../data/models/moreLikeThis_Response.dart';
 
 
-
-class MoreLikeThisItem extends StatelessWidget {
+class MoreLikeThisItemForRecomendedPart extends StatelessWidget {
 
   List<Results> results;
   final int index;
 
-  MoreLikeThisItem({required this.results, required this.index, super.key});
+  MoreLikeThisItemForRecomendedPart({required this.results, required this.index, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +27,8 @@ class MoreLikeThisItem extends StatelessWidget {
                 finalPath,
               ),
             ),
-            InkWell(
-              onTap: (){},
-              child: Image.asset(
-                "assets/images/bookmark.png",
-              ),
+            Image.asset(
+              "assets/images/bookmark.png",
             ),
           ],
         ),

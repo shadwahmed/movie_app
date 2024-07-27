@@ -2,14 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:movie_app/features/homeTab/presentation/widgets/moreLikeThis_Item.dart';
+import 'package:movie_app/features/homeTab/presentation/widgets/more_model.dart';
 import 'package:movie_app/features/homeTab/presentation/widgets/movie_details_screen.dart';
+import 'package:movie_app/features/homeTab/presentation/widgets/pouplrModelTry.dart';
+import 'package:movie_app/features/watchlist/data/datasources/firebase/firebase_services.dart';
+
 import '../../data/models/popular_response.dart';
 
 class PopularItem extends StatefulWidget {
   List<Results> results;
   final int index;
 
-   PopularItem({required this.results, required this.index,super.key});
+  PopularItem({required this.results,required this.index, super.key});
 
   @override
   State<PopularItem> createState() => _PopularItemState();
@@ -21,16 +25,17 @@ class _PopularItemState extends State<PopularItem> {
     var image = "https://image.tmdb.org/t/p/w500";
     var backGroundPath = "$image${widget.results[widget.index].backdropPath}";
     var postarPath = "$image${widget.results[widget.index].posterPath}";
+    bool isFavorite=false;
 
     return SafeArea(
-      child: Stack(
-          children: [
+      child: Stack(children: [
         Column(
           children: [
             InkWell(
               onTap: () {
                 Navigator.pushNamed(context, MovieDetailsScreen.routName,
-                    arguments: MoreLikeThisItem( results: widget.results, index:widget.index));
+                    arguments: MoreModel(
+                        results: widget.results, index: widget.index));
                 setState(() {});
               },
               child: Container(
@@ -95,15 +100,34 @@ class _PopularItemState extends State<PopularItem> {
         Positioned(
             top: 100,
             left: 21,
-            child: Container(
-              height: 36,
-              width: 27,
-              child: Image.asset(
-                "assets/images/bookmark.png",
-                fit: BoxFit.fill,
+            child: InkWell(
+              onTap: () {
+                addMovie();
+                isFavorite=true;
+                setState(() {
+                });
+              },
+              child: Container(
+                height: 36,
+                width: 27,
+                child: Image.asset(
+                  isFavorite == false ?  "assets/images/bookmark.png":
+                  "assets/images/watchlist_icon.png",
+                  fit: BoxFit.fill,
+                ),
               ),
             )),
       ]),
     );
+  }
+
+  void addMovie() {
+    FirebaseServices.addMovieToFirestore(
+            PouplrModelTry(results: widget.results, index: widget.index))
+        .then((value) {
+      print('Success');
+    }).catchError((_) {
+      print("Error,try again!");
+    });
   }
 }

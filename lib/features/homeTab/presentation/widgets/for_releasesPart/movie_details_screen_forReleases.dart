@@ -3,18 +3,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
-import 'package:movie_app/features/homeTab/presentation/widgets/moreLikeThis_Item.dart';
-import 'package:movie_app/features/homeTab/presentation/widgets/moreLikeThis_part.dart';
-import 'package:movie_app/features/homeTab/presentation/widgets/more_model.dart';
 
-class MovieDetailsScreen extends StatelessWidget {
-  static const String routName = 'movieDetails';
+import 'package:movie_app/features/homeTab/presentation/widgets/for_releasesPart/moreLikeThis_Item_forReleases.dart';
+import 'package:movie_app/features/homeTab/presentation/widgets/for_releasesPart/moreLikeThis_part_for%20releases.dart';
+import 'package:movie_app/features/homeTab/presentation/widgets/for_releasesPart/more_model_forRelease.dart';
 
-  const MovieDetailsScreen({super.key});
+class MovieDetailsScreenForReleases extends StatelessWidget {
+  static const String routName = 'movieDetailsReleases';
+
+  const MovieDetailsScreenForReleases({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as MoreModel;
+    final args = ModalRoute.of(context)!.settings.arguments
+        as MoreModelForReleases;
     var image = "https://image.tmdb.org/t/p/w500";
     var backGroundPath = "$image${args.results[args.index].backdropPath}";
     var postarPath = "$image${args.results[args.index].posterPath}";
@@ -233,7 +235,7 @@ class MovieDetailsScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 8, top: 2, bottom: 8),
                     child: Container(
                         height: 160,
-                        child: MoreLikeThisPart(
+                        child: MoreLikeThisPartForReleases(
                             results: args.results, index: args.index)),
                   ),
                 ],

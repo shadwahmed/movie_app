@@ -1,24 +1,23 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
-import 'package:movie_app/features/homeTab/presentation/widgets/moreLikeThis_Item.dart';
-import 'package:movie_app/features/homeTab/presentation/widgets/moreLikeThis_part.dart';
-import 'package:movie_app/features/homeTab/presentation/widgets/more_model.dart';
+import 'package:movie_app/features/homeTab/presentation/widgets/for_recomendedPart/moreLikeThis_part_forRecomended.dart';
+import 'package:movie_app/features/homeTab/presentation/widgets/for_recomendedPart/more_model_forRecomended.dart';
 
-class MovieDetailsScreen extends StatelessWidget {
-  static const String routName = 'movieDetails';
 
-  const MovieDetailsScreen({super.key});
+class MovieDetailsScreenForRecomended extends StatelessWidget {
+  static const String routName = 'movieDetailsRecomended';
+
+  const MovieDetailsScreenForRecomended({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as MoreModel;
+    final args = ModalRoute.of(context)!.settings.arguments
+        as MoreModelForRecomended;
     var image = "https://image.tmdb.org/t/p/w500";
     var backGroundPath = "$image${args.results[args.index].backdropPath}";
     var postarPath = "$image${args.results[args.index].posterPath}";
-    //var results = ModalRoute.of(context)!.settings.arguments as List<Results> ;
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.black,
@@ -233,7 +232,7 @@ class MovieDetailsScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 8, top: 2, bottom: 8),
                     child: Container(
                         height: 160,
-                        child: MoreLikeThisPart(
+                        child: MoreLikeThisPartForRecomendedPart(
                             results: args.results, index: args.index)),
                   ),
                 ],

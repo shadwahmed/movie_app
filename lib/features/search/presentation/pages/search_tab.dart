@@ -10,7 +10,6 @@ import '../widgets/search_item.dart';
 import '../widgets/unsearch_item.dart';
 
 class SearchTab extends StatefulWidget {
-
   static const String routeName = "searchTab";
 
   SearchTab({super.key});
@@ -20,22 +19,18 @@ class SearchTab extends StatefulWidget {
 }
 
 class _SearchTabState extends State<SearchTab> {
-  List<Results> resultList = [];
-  List<Results> originalList = [];
-
   TextEditingController searchController = TextEditingController();
+  List<Results> resultList = [];
 
-  @override
   Widget build(BuildContext context) {
-
     return SafeArea(
       child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.black,
-            title: Padding(
-              padding: EdgeInsets.only(top: 6, bottom: 6),
-              child: Container(
-                height: 55,
+          backgroundColor: Colors.black,
+          body: Column(
+            children: [
+              Container(
+                height: 50,
+                width: 350,
                 child: TextField(
                   controller: searchController,
                   style: TextStyle(color: Colors.white),
@@ -63,55 +58,73 @@ class _SearchTabState extends State<SearchTab> {
                             BorderSide(color: Color(0xffB5B4B4), width: 2)),
                   ),
                   onChanged: (value) {
-                    searchController.text = value;
-                    search(searchController.text);
-                    print("================${searchController.text}");
-                    setState(() {});
+                    setState(() {
+                      ApiManager.getSearch(value).then((results) {
+                        resultList = results.results ?? [];
+                      });
+                    });
+                    print(
+                        "========================${resultList}"); //searchController.text = value;
+                    //search(searchController.text);
                   },
                 ),
               ),
-            ),
-          ),
-          backgroundColor: Colors.black,
-          body: FutureBuilder(
-              future: searchController.text.isEmpty
-                  ? null
-                  : ApiManager.getSearch(searchController.text),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
-                }
-                if (snapshot.hasError) {
-                  return Center(child: Text("Something went wrong"));
-                }
-                resultList = snapshot.data?.results ?? [];
-                print(snapshot.data);
-                print(resultList);
+              Expanded(
+                child: FutureBuilder(
+                    future: ApiManager.getSearch(searchController.text),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(child: CircularProgressIndicator());
+                      }
+                      if (snapshot.hasError) {
+                        return Center(child: Text("Something went wrong"));
+                      }
+                      print(snapshot.data);
+                      print(resultList);
 
-                if (resultList.isEmpty) {
-                  return UnSearchItem();
-                }
-                return ListView.builder(
-                    itemBuilder: (context, index) {
-                      return SearchItem(
-                        results: resultList,
-                        index: index,
-                      );
-                    },
-                    itemCount: resultList.length);
-              })),
+                      if (resultList.isEmpty) {
+                        return UnSearchItem();
+                      }
+                      return ListView.builder(
+                          itemBuilder: (context, index) {
+                            return SearchItem(
+                              results: resultList,
+                              index: index,
+                            );
+                          },
+                          itemCount: resultList.length);
+                    }),
+              ),
+            ],
+          )),
     );
   }
-
-  // void search(String query) {
-  //   ApiManager.getSearch(query);
-  // }
-
-   void search(String query) {
-     setState(() {
-       resultList = originalList.where((item) =>
-           item.title!.toLowerCase().contains(query.toLowerCase())).toList();
-     });
-   }
-
 }
+//   void search(String query) {
+//     if (query.isNotEmpty) {
+//       ApiManager.getSearch(query).then((response) {
+//         setState(() {
+//           resultList = response.results ?? [];
+//         });
+//       }).catchError((error) {
+//         setState(() {
+//           resultList = []; // Reset the resultList if an error occurs
+//         });
+//       });
+//     } else {
+//       setState(() {
+//         resultList = []; // Reset the resultList if the query is empty
+//       });
+//     }
+//   }
+// }
+// void search(String query) {
+//   ApiManager.getSearch(query);
+// }
+//
+//   void search(String query) {
+//     setState(() {
+//        ApiManager.getSearch(query);
+//     });
+//   }
+// }

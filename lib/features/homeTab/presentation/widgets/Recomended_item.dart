@@ -1,32 +1,49 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:movie_app/features/homeTab/presentation/widgets/for_recomendedPart/moreLikeThis_Item_forRecomended.dart';
+import 'package:movie_app/features/homeTab/presentation/widgets/for_recomendedPart/more_model_forRecomended.dart';
+import 'package:movie_app/features/homeTab/presentation/widgets/for_recomendedPart/movie_details_screen_forRecomended.dart';
 
 import '../../data/models/recomended_response.dart';
 
-class RecomendedItem extends StatelessWidget {
+class RecomendedItem extends StatefulWidget {
   List<Results> results;
   final int index;
 
   RecomendedItem({required this.results, required this.index, super.key});
 
   @override
+  State<RecomendedItem> createState() => _RecomendedItemState();
+}
+
+class _RecomendedItemState extends State<RecomendedItem> {
+  @override
   Widget build(BuildContext context) {
     var image = "https://image.tmdb.org/t/p/w500";
-    var finalPath = "$image${results[index].posterPath}";
+    var finalPath = "$image${widget.results[widget.index].posterPath}";
 
     return Column(
       children: [
         Stack(
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(4),
-              child: Image.network(
-                height: 120,
-                finalPath,
+            InkWell(
+              onTap: (){
+                Navigator.pushNamed(context, MovieDetailsScreenForRecomended.routName,
+                    arguments: MoreModelForRecomended( results: widget.results, index:widget.index));
+              },
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(4),
+                child: Image.network(
+                  height: 120,
+                  finalPath,
+                ),
               ),
             ),
-            Image.asset(
-              "assets/images/bookmark.png",
+            InkWell(
+              onTap: (){},
+              child: Image.asset(
+                "assets/images/bookmark.png",
+              ),
             ),
           ],
         ),
@@ -52,12 +69,12 @@ class RecomendedItem extends StatelessWidget {
                     width: 3,
                   ),
                   Text(
-                    "${results[index].voteAverage}",
+                    "${widget.results[widget.index].voteAverage}",
                     style: TextStyle(fontSize: 9, color: Colors.white),
                   ),
                 ],
               ),
-              Text("${results[index].title}",
+              Text("${widget.results[widget.index].title}",
                   maxLines: 1,
                   style: TextStyle(fontSize: 9, color: Colors.white))
             ],
