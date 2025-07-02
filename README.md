@@ -1,16 +1,39 @@
-# movie_app
+# 🎬 Movies App
 
-A new Flutter project.
+A modern Flutter app that allows users to explore cinema films currently available. The app includes powerful search, category filtering, and a personal watchlist feature.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## 📱 Screenshots
 
-A few resources to get you started if this is your first Flutter project:
+![App Screenshot](https://github.com/user-attachments/assets/90196bf1-03db-4298-9f15-7b7adfcb3f7c)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🚀 Features
+
+- 🔍 **Search Functionality** – Quickly find your favorite films.
+- 🗂️ **Categories** – Browse by genres and film types.
+- ❤️ **Watchlist** – Save your must-watch titles.
+- 🌐 **RESTful API Integration** – Real-time film data.
+- 🔥 **Firebase Caching** – Speeds up repeated loads and enables offline access.
+- 📱 **Creative & Responsive UI** – Designed with Figma and optimized for all screen sizes.
+
+---
+
+## 🧰 Tech Stack
+
+- **Flutter** – Cross-platform UI framework
+- **Dart** – Programming language
+- **RESTful APIs** – For movie data fetching.
+- **Firebase** – For caching the watchlist 
+- **MVVM Architecture**
+- **Figma** – UI/UX design
+
+---
+
+## 🛠️ Installation
+
+1. **Clone the repository**  
+   ```bash
+   git clone https://github.com/shadwahmed/movie_app.git
